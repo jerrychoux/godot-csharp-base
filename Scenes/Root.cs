@@ -11,6 +11,7 @@ public class Root : Node
     public override void _Ready()
     {
         GD.Print("hello");
+
     }
 
     //  // Called every frame. 'delta' is the elapsed time since the previous frame.
