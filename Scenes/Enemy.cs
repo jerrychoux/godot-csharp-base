@@ -1,21 +1,25 @@
 using Godot;
 using System;
 
-public class Enemy : Node2D
+public class Enemy : RigidBody2D
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
 
-    // Called when the node enters the scene tree for the first time.
+    [Export]
+    public int minSpeed = 150;
+    [Export]
+    public int maxSpeed = 250;
+
+    static private Random _random = new Random();
+
     public override void _Ready()
     {
-        
+        var animatedSprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        var animationNames = animatedSprite.Frames.GetAnimationNames();
+        animatedSprite.Animation = animationNames[_random.Next(0, animationNames.Length)];
     }
 
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
+    public void OnVisibilityNotifier2DScreenExited()
+    {
+        QueueFree();
+    }
 }

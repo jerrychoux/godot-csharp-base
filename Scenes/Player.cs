@@ -5,6 +5,8 @@ public class Player : Area2D
 {
     [Export]
     public int speed = 400;
+    [Signal]
+    public delegate void Hit();
     private Vector2 _screenSize;
     public override void _Ready()
     {
@@ -65,5 +67,19 @@ public class Player : Area2D
             x: Mathf.Clamp(Position.x, 0, _screenSize.x),
             y: Mathf.Clamp(Position.y, 0, _screenSize.y)
         );
+    }
+
+    public void OnPlayerBodyEntered(PhysicsBody2D body)
+    {
+        Hide();
+        EmitSignal("Hit");
+        GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred("disabled", true);
+    }
+
+    public void Start(Vector2 pos)
+    {
+        Position = pos;
+        Show();
+        GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false;
     }
 }
