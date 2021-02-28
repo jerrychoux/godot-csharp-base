@@ -11,16 +11,16 @@ animations = [ {
 "frames": [ ExtResource( 4 ), ExtResource( 3 ) ],
 "loop": true,
 "name": "walk",
-"speed": 5.0
+"speed": 15.0
 }, {
 "frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
 "loop": true,
 "name": "up",
-"speed": 5.0
+"speed": 15.0
 } ]
 
-[sub_resource type="CircleShape2D" id=2]
-radius = 60.0
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 55.0
 
 [node name="Player" type="Area2D"]
 script = ExtResource( 5 )
@@ -29,7 +29,6 @@ __meta__ = {
 }
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0, 10 )
 frames = SubResource( 1 )
 animation = "walk"
 frame = 1
