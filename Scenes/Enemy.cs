@@ -16,6 +16,8 @@ public class Enemy : RigidBody2D
         var animatedSprite = GetNode<AnimatedSprite>("AnimatedSprite");
         var animationNames = animatedSprite.Frames.GetAnimationNames();
         animatedSprite.Animation = animationNames[_random.Next(0, animationNames.Length)];
+
+        animatedSprite.Play();
     }
 
     public void OnVisibilityNotifier2DScreenExited()

@@ -9,13 +9,7 @@ public class Root : Node
     private Random _random = new Random();
     public override void _Ready()
     {
-        GameNew();
-    }
-
-
-    public override void _Process(float delta)
-    {
-
+        // GameNew();
     }
 
     private float RandRange(float min, float max)
@@ -32,6 +26,8 @@ public class Root : Node
     public void OnScoreTimerTimeout()
     {
         _score++;
+
+        GetNode<HUD>("HUD").UpdateScore(_score);
     }
 
     public void OnEnemyTimerTimeout()
@@ -52,10 +48,22 @@ public class Root : Node
 
     }
 
+    public void OnHUDStartGame()
+    {
+        GameNew();
+    }
+
+    public void OnPlayerHit()
+    {
+        GameOver();
+    }
+
     public void GameOver()
     {
         GetNode<Timer>("EnemyTimer").Stop();
         GetNode<Timer>("ScoreTimer").Stop();
+
+        GetNode<HUD>("HUD").ShowGameOver();
     }
 
     public void GameNew()
@@ -67,5 +75,9 @@ public class Root : Node
         player.Start(startPosition.Position);
 
         GetNode<Timer>("StartTimer").Start();
+
+        var hud = GetNode<HUD>("HUD");
+        hud.UpdateScore(_score);
+        hud.ShowMessage("Get Ready!");
     }
 }
