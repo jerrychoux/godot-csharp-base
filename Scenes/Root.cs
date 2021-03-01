@@ -64,6 +64,8 @@ public class Root : Node
         GetNode<Timer>("ScoreTimer").Stop();
 
         GetNode<HUD>("HUD").ShowGameOver();
+
+        GetNode<AudioStreamPlayer>("DeathSound").Play();
     }
 
     public void GameNew()
